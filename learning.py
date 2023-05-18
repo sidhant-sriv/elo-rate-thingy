@@ -1,3 +1,5 @@
+'''NOT PART OF THE ACTUAL CODE THIS WAS LEARNING PURPOSES'''
+
 from sqlalchemy import create_engine, ForeignKey, Column, String, Integer, CHAR
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
