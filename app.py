@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 from elo_algorithm import calculate_elo_rating
 import random
 app = Flask(__name__)
@@ -13,21 +13,25 @@ data = [{
     "rating": 1500,
     "description": "Iron man"
 },
-{
+    {
     "name": "Dude101",
     "rating": 1300,
-    "description": "Mera dimaag kharaab ho raha hai" # Checking if random matchmaking works, idk how to do rank based matchmaking yet
+    # Checking if random matchmaking works, idk how to do rank based matchmaking yet
+    "description": "Mera dimaag kharaab ho raha hai"
 }]
 
+
+@app.route('/')
+def main():
+    return render_template('base.html')
+
 # Get all the users
-@app.route('/users')
+@app.route('/players')
 def all_users():
-    for i in data:
-        print(i["rating"])
-    return jsonify(data)
+    return render_template("player.html", data=data)
 
 
-@app.route('/users/<id>')
+@app.route('/players/<id>')
 def one_user(id):
     return jsonify(data[int(id)])
 
@@ -40,7 +44,8 @@ def match(id1, id2):
         data[id1]['rating'], data[id2]['rating'])
     return jsonify(data)
 
-@app.route('/matchmaking', methods=['GET','POST'])
+
+@app.route('/matchmaking', methods=['GET', 'POST'])
 def matchmaking():
     # Select random players
     player1 = random.choice(data)
