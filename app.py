@@ -23,9 +23,11 @@ data = [{
 
 @app.route('/')
 def main():
-    return render_template('base.html')
+    return render_template('home.html')
 
 # Get all the users
+
+
 @app.route('/players')
 def all_users():
     return render_template("player.html", data=data)
@@ -36,7 +38,13 @@ def one_user(id):
     return jsonify(data[int(id)])
 
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
 # Id1 is the index of the winner, Id2 is the index of the loser
+
+
 @app.route('/match/<id1>/<id2>', methods=['POST'])
 def match(id1, id2):
     id1, id2 = int(id1), int(id2)
